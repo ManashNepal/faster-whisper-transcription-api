@@ -10,7 +10,8 @@ load_dotenv()
 app = FastAPI(title = "Speech Transcription API")
 
 # Load the model once
-model = WhisperModel("base", device="cpu", compute_type="int8")
+# model = WhisperModel("base", device="cpu", compute_type="int8")
+model = WhisperModel("base", device="cuda", compute_type="float16")
 
 # to store the audio temporarily
 TEMP_DIR = "temp_audio"
