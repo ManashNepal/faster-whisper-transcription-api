@@ -37,11 +37,21 @@ async def transcribe_audio(file : UploadFile = File(...)):
         segments, info = model.transcribe(file_path, word_timestamps=True, beam_size=5)
         result = []
         for segment in segments:
+            words = []
+            for word in segment.words:
+                word_data = {
+                    "start" : word.start,
+                    "end" : word.end,
+                    "word" : word.word.strip()
+                }
+                words.append(word_data)
 
+                
             segment_data = {
                 "start" : segment.start,
                 "end" : segment.end,
-                "text" : segment.text.strip()
+                "text" : segment.text.strip(),
+                "words": words
             }
 
             result.append(segment_data)
@@ -53,7 +63,3 @@ async def transcribe_audio(file : UploadFile = File(...)):
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
-
-
-
-    
