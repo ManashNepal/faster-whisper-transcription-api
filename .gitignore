@@ -1,5 +1,5 @@
 .env
-__pycache__/
-venv
 Conversation
 Conversation_Audio
+faster_whisper
+__pycache__
